@@ -1,0 +1,48 @@
+Klassen:
+###################
+Benutzer
+
+attribute:
+ENUM angemeldet/abgemeldet
+String Benutzername
+String Passwort
+Dateispeicher dateispeicher
+ArrayList<Chat>
+
+methoden:
+anmelden()
+abmelden()
+nachrichtSenden(Chat chat, Nachricht nachricht)
+dateiSenden(Chat chat, Datei datei)
+chatLoeschen(Chat chat)
+
+
+###################
+Chat
+ArrayList<Nachricht>
+ArrayList<Datei>
+
+methoden:
+nachrichtHinzufuegen(Nachricht nachricht)
+dateiHinzufuegen(Datei datei)
+nachrichtenAnzeigen()
+dateienAnzeigen()
+clearChat()
+
+###################
+Nachricht
+String message
+Date timestamp
+Datei datei
+
+
+###################
+Dateispeicher
+Path speicherort
+
+
+###################
+Datei
+String dateiname
+Path dateipfad
+
