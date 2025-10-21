@@ -1,7 +1,14 @@
-import java.beans.BeanProperty;
+package Uebung1HA.exercise1homework;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 @SpringBootApplication
-public class HA1Main {
+public class Exercise1homeworkApplication {
 
     	private static final Logger log = LoggerFactory.getLogger(BeanExampleApplication.class);
 
