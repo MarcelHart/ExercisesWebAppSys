@@ -15,6 +15,9 @@ public class homeworkApplication {
 
 	@Autowired
 	Studiengang studiengang;
+	public static void main(String[] args) {
+		SpringApplication.run(homeworkApplication.class, args);
+	}
 	
 
 
