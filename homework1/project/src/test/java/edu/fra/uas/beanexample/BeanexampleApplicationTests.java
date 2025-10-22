@@ -1,10 +1,10 @@
-package Uebung1HA.exercise1homework;
+package project.src.test.java.edu.fra.uas.beanexample;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Exercise1homeworkApplicationTests {
+class BeanexampleApplicationTests {
 
 	@Test
 	void contextLoads() {
