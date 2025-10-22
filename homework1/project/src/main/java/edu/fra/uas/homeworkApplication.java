@@ -1,6 +1,5 @@
 package edu.fra.uas;
 import org.springframework.boot.CommandLineRunner;
-// filepath: homeworkApplication.java
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +19,11 @@ public class HomeworkApplication {
 	private static final Logger log = LoggerFactory.getLogger(HomeworkApplication.class);
 
 	@Autowired
-	Studiengang studiengang;
+	Studiengang wirtschaftsinformatikerBsc;
+
+	public static void main(String[] args) {
+		SpringApplication.run(HomeworkApplication.class, args);
+	}
 
 	@Bean
 	CommandLineRunner init() {
@@ -29,10 +32,21 @@ public class HomeworkApplication {
 			public void run(String... args) throws Exception {
 				
 				log.debug("Starting Homework Application");
-				studiengang.addKurs(new Kurs("Mathematik", 101));
-				studiengang.addKurs(new Kurs("Informatik", 102));
-				studiengang.printKurse();
+				Kurs winfo = new Kurs("Wirtschaftsinformatik", 301, 3);
+				winfo.addNote(1.3, 2);
+				winfo.addNote(2.0, 3);
+
+				Kurs algebra = new Kurs("Algebra", 201, 2);
+				algebra.addNote(2.3, 1);
+				algebra.addNote(4.7, 2);
+
+				wirtschaftsinformatikerBsc.addKurs(winfo);
+				wirtschaftsinformatikerBsc.addKurs(algebra);
+				wirtschaftsinformatikerBsc.printKurse();
 				log.debug("Homework Application started successfully");
+
+				wirtschaftsinformatikerBsc.berechneNotendurchschnitt();
+			
 			}
 		};
 		return action;
