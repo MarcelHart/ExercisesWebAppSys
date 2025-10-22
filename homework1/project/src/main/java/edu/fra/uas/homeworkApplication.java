@@ -25,6 +25,7 @@ public class HomeworkApplication {
 		SpringApplication.run(HomeworkApplication.class, args);
 	}
 
+
 	@Bean
 	CommandLineRunner init() {
 		CommandLineRunner action = new CommandLineRunner() {
@@ -32,21 +33,24 @@ public class HomeworkApplication {
 			public void run(String... args) throws Exception {
 				
 				log.debug("Starting Homework Application");
-				Kurs winfo = new Kurs("Wirtschaftsinformatik", 301, 3);
-				winfo.addNote(1.3, 2);
-				winfo.addNote(2.0, 3);
+					Kurs winfo = new Kurs("Wirtschaftsinformatik", 301, 3);
+					winfo.addNote(1.3, 2);
+					winfo.addNote(2.0, 3);
 
-				Kurs algebra = new Kurs("Algebra", 201, 2);
-				algebra.addNote(2.3, 1);
-				algebra.addNote(4.7, 2);
+					Kurs algebra = new Kurs("Algebra", 201, 2);
+					algebra.addNote(2.3, 1);
+					algebra.addNote(4.7, 2);
 
-				wirtschaftsinformatikerBsc.addKurs(winfo);
-				wirtschaftsinformatikerBsc.addKurs(algebra);
-				wirtschaftsinformatikerBsc.printKurse();
+					wirtschaftsinformatikerBsc.addKurs(winfo);
+					wirtschaftsinformatikerBsc.addKurs(algebra);
+					wirtschaftsinformatikerBsc.printKurse();
+
+					double durchschnitt = wirtschaftsinformatikerBsc.berechneNotendurchschnitt();
+					log.debug("Notendurchschnitt im Studiengang: " + durchschnitt);
+				
+
 				log.debug("Homework Application started successfully");
-
-				wirtschaftsinformatikerBsc.berechneNotendurchschnitt();
-			
+							
 			}
 		};
 		return action;

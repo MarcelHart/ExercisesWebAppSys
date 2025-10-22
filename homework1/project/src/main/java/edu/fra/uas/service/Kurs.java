@@ -12,6 +12,11 @@ public class Kurs {
 
     private HashMap<Double, Integer> noten = new HashMap<>();
 
+    public Kurs() {
+        this.name = "unknown";
+        this.kurscode = 0;
+        this.semester = 0;
+    }   
 
     public Kurs(String name, int kurscode, int semester) {
         this.name = name;
@@ -27,13 +32,25 @@ public class Kurs {
         noten.remove(note);
     }
 
-    public void notenAusgeben() {
+    public String notenAusgeben() {
+        String text = "";
         for (Double note : noten.keySet()) {
-            System.out.println("Note: " + note + " Gewichtung: " + noten.get(note));
+            
+            text += "Note: " + note + " Gewichtung: " + noten.get(note) + "\n";
         }
+        return text;
     }
 
-    public void berechneNotendurchschnitt() {
+    @Override
+    public String toString() {
+        return "Kurs{" +
+                "name='" + name + '\'' +
+                ", kurscode=" + kurscode +
+                ", semester=" + semester +
+                '}';
+    }
+
+    public double berechneNotendurchschnitt() {
         double summe = 0;
         int gesamtgewichtung = 0;
         for (Double note : noten.keySet()) {
@@ -42,7 +59,6 @@ public class Kurs {
             gesamtgewichtung += gewichtung;
         }
         double durchschnitt = summe / gesamtgewichtung;
-        System.out.println("Notendurchschnitt für den Kurs "+ this.name + " ist: " + durchschnitt);
-    
+        return durchschnitt;
     }
 }
