@@ -1,4 +1,4 @@
-package project.src.main.java.edu.fra.uas.service;
+package edu.fra.uas.service;
 
 import org.springframework.stereotype.Component;
 import java.util.HashMap;

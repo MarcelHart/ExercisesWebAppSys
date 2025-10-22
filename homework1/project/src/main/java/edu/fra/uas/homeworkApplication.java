@@ -1,4 +1,4 @@
-package project.src.main.java.edu.fra.uas;
+package edu.fra.uas;
 // filepath: homeworkApplication.java
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,14 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 @SpringBootApplication
-public class homeworkApplication {
+public class HomeworkApplication {
 
-	private static final Logger log = LoggerFactory.getLogger(homeworkApplication.class);
+	private static final Logger log = LoggerFactory.getLogger(HomeworkApplication.class);
 
 	@Autowired
 	Studiengang studiengang;
 	public static void main(String[] args) {
-		SpringApplication.run(homeworkApplication.class, args);
+		SpringApplication.run(HomeworkApplication.class, args);
 	}
 	
 

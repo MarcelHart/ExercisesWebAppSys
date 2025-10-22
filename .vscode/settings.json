@@ -2,5 +2,6 @@
     "java.configuration.updateBuildConfiguration": "interactive",
     "java.project.sourcePaths": [
         "homework1"
-    ]
+    ],
+    "java.compile.nullAnalysis.mode": "automatic"
 }
