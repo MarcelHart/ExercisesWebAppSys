@@ -21,7 +21,7 @@ public class Kurs {
 
 
     public void addNote(double note, int gewichtung) {
-        noten.put(note, anzahl);
+        noten.put(note, gewichtung);
     }
     public void removeNote(double note) {
         noten.remove(note);
