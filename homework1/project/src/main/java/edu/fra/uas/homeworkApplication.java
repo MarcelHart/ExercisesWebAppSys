@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import edu.fra.uas.service.Studiengang;
+import edu.fra.uas.controller.NotenController;
 import edu.fra.uas.service.Kurs;
 
 import org.slf4j.Logger;
@@ -19,6 +20,7 @@ public class HomeworkApplication {
 	private static final Logger log = LoggerFactory.getLogger(HomeworkApplication.class);
 
 	@Autowired
+	NotenController notenController;
 	Studiengang wirtschaftsinformatikerBsc;
 
 	public static void main(String[] args) {
