@@ -21,6 +21,7 @@ public class HomeworkApplication {
 
 	@Autowired
 	NotenController notenController;
+	@Autowired
 	Studiengang wirtschaftsinformatikerBsc;
 
 	public static void main(String[] args) {
