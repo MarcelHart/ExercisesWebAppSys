@@ -29,5 +29,31 @@ public class StudiengangTest {
         assertThat(testStudiengang.berechneNotendurchschnitt()).isNotNull();
 
     }
+
+    @Test
+    void testDurchschnittOhneKurse(){
+        Studiengang leererStudiengang = new Studiengang("LeererStudiengang", 999);
+        assertThat(leererStudiengang.berechneNotendurchschnitt()).isNaN();
+    }
+
+
+    @Test
+    void testMatheDurchschnitt(){
+        Studiengang matheStudiengang = new Studiengang("MatheStudiengang", 202);
+
+        Kurs analysis = new Kurs("Analysis", 201, 2);
+        analysis.addNote(1.0, 3);
+        analysis.addNote(3.0, 1);
+
+        Kurs lineareAlgebra = new Kurs("Lineare Algebra", 202, 2);
+        lineareAlgebra.addNote(2.0, 2);
+        lineareAlgebra.addNote(4.0, 2);
+
+        matheStudiengang.addKurs(analysis);
+        matheStudiengang.addKurs(lineareAlgebra);
+
+        double durchschnitt = matheStudiengang.berechneNotendurchschnitt();
+        assertThat(durchschnitt).isEqualTo(2.25);
+    }
     
 }
