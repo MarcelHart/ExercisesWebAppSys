@@ -24,7 +24,6 @@ public class SpringDependencyInjectionApplication {
 
 			@Override
 			public void run(String... args) throws Exception {
-//				FirstService firstService = new FirstService();
 				firstService.doSomething();
 			}
 		};
