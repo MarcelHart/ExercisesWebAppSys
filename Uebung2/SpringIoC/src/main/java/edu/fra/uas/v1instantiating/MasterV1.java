@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MasterV1 {
+    
     Journeyman journeyman = new Journeyman();
 
     public void delegateWork() {
