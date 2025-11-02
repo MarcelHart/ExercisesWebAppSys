@@ -1,6 +1,10 @@
 package edu.fra.uas.service;
 
 import java.util.ArrayList;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -10,15 +14,40 @@ public class Studiengang {
     private int studiengangscode;
     ArrayList<Kurs> kurse = new ArrayList<Kurs>();
 
-
     public Studiengang() {
         this.name = "Wirtschaftsinformatik BSc";
-        this.studiengangscode = 001;
+        this.studiengangscode = 1;
     }
 
     public Studiengang(String name, int studiengangscode) {
         this.name = name;
         this.studiengangscode = studiengangscode;
+    }
+
+    @PostConstruct
+    private void init() {
+        // set sensible defaults if not provided
+        if (this.name == null) {
+            this.name = "Wirtschaftsinformatik BSc";
+        }
+        if (this.studiengangscode == 0) {
+            this.studiengangscode = 1;
+        }
+        if (this.kurse == null) {
+            this.kurse = new ArrayList<>();
+        }
+        // optionally populate default courses or run validation here
+    }
+
+    @PreDestroy
+    private void destroy() {
+        // clear and release internal data on bean destruction
+        if (kurse != null) {
+            kurse.clear();
+            kurse = null;
+        }
+        name = null;
+        studiengangscode = 0;
     }
 
 
