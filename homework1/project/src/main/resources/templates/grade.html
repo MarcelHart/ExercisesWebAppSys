@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notenverwaltung</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1, h2 {
+            color: #0056b3;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        form label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        form input[type="text"],
+        form input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        form button {
+            grid-column: span 2;
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        form button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        table th {
+            background-color: #e2e2e2;
+            font-weight: bold;
+        }
+        .average-score {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #eaf6ff;
+            border: 1px solid #cce7ff;
+            border-radius: 5px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Notenverwaltung für Kurse</h1>
+
+        <h2>Kurs hinzufügen</h2>
+        <form id="courseForm">
+            <div>
+                <label for="courseName">Kursname:</label>
+                <input type="text" id="courseName" name="courseName" required>
+            </div>
+            <div>
+                <label for="grade">Note (z.B. 1.0 - 5.0):</label>
+                <input type="number" id="grade" name="grade" min="1.0" max="5.0" step="0.1" required>
+            </div>
+            <div>
+                <label for="weight">Gewichtung (z.B. 1-10):</label>
+                <input type="number" id="weight" name="weight" min="1" required>
+            </div>
+            <button type="submit">Kurs hinzufügen</button>
+        </form>
+
+        <h2>Übersicht der Kurse</h2>
+        <table id="courseTable">
+            <thead>
+                <tr>
+                    <th>Kursname</th>
+                    <th>Note</th>
+                    <th>Gewichtung</th>
+                </tr>
+            </thead>
+            <tbody>
+                </tbody>
+        </table>
+
+        <div class="average-score">
+            Durchschnittsnote: <span id="averageGrade">N/A</span>
+        </div>
+    </div>
+
+    <script>
+        // Simuliert das Backend mit einer HashMap (JavaScript Map)
+        // In einem echten Backend wäre dies eine HashMap in Java/Python/etc.
+        const courses = new Map(); // Key: Kursname, Value: { grade: number, weight: number }
+
+        const courseForm = document.getElementById('courseForm');
+        const courseTableBody = document.querySelector('#courseTable tbody');
+        const averageGradeSpan = document.getElementById('averageGrade');
+
+        // Funktion zum Hinzufügen eines Kurses zur Map und Aktualisieren der UI
+        function addCourse(name, grade, weight) {
+            courses.set(name, { grade: parseFloat(grade), weight: parseInt(weight) });
+            updateCourseList();
+            calculateAverage();
+        }
+
+        // Funktion zum Aktualisieren der Kurstabelle
+        function updateCourseList() {
+            courseTableBody.innerHTML = ''; // Tabelle leeren
+            courses.forEach((course, name) => {
+                const row = courseTableBody.insertRow();
+                row.insertCell(0).textContent = name;
+                row.insertCell(1).textContent = course.grade.toFixed(1); // 1 Nachkommastelle
+                row.insertCell(2).textContent = course.weight;
+            });
+        }
+
+        // Funktion zur Berechnung des gewichteten Notendurchschnitts
+        function calculateAverage() {
+            if (courses.size === 0) {
+                averageGradeSpan.textContent = 'N/A';
+                return;
+            }
+
+            let totalWeightedSum = 0;
+            let totalWeight = 0;
+
+            courses.forEach(course => {
+                totalWeightedSum += course.grade * course.weight;
+                totalWeight += course.weight;
+            });
+
+            if (totalWeight === 0) {
+                averageGradeSpan.textContent = 'N/A (Gesamtgewichtung 0)';
+                return;
+            }
+
+            const average = totalWeightedSum / totalWeight;
+            averageGradeSpan.textContent = average.toFixed(2); // 2 Nachkommastellen
+        }
+
+        // Event Listener für das Formular-Absenden
+        courseForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Standard-Formular-Absenden verhindern
+
+            const courseName = document.getElementById('courseName').value;
+            const grade = document.getElementById('grade').value;
+            const weight = document.getElementById('weight').value;
+
+            if (courseName && grade && weight) {
+                // Hier würden die Daten normalerweise an ein echtes Backend gesendet werden
+                // Für diese Simulation fügen wir sie direkt der Map hinzu
+                addCourse(courseName, grade, weight);
+
+                // Formularfelder zurücksetzen
+                courseForm.reset();
+            } else {
+                alert('Bitte füllen Sie alle Felder aus.');
+            }
+        });
+
+        // Initialberechnung und Anzeige, falls schon Kurse vorhanden wären
+        calculateAverage();
+
+    </script>
+</body>
+</html>
