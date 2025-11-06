@@ -10,8 +10,8 @@ import edu.fra.uas.service.Kurs;
 @Component
 public class initCourses {
 
-    private final Logger log = org.slf4j.LoggerFactory.getLogger(InitData.class);
-
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(initCourses.class);
+    
     @Autowired
     Kurs initKurs;
 
@@ -22,8 +22,8 @@ public class initCourses {
 
         log.debug("create course Software Engineering");
         initKurs = new Kurs("Software Engineering", 101, 3);
-        initKurs.addNote(1, 90.0);
-        initKurs.addNote(2, 80.0);
+        initKurs.addNote(1.0, 2);
+        initKurs.addNote(2.3, 4);
         log.debug("Course created: " + initKurs.toString());
         log.debug("Grades:\n" + initKurs.notenAusgeben());
 
