@@ -37,12 +37,10 @@ public class Studiengang {
         if (this.kurse == null) {
             this.kurse = new ArrayList<>();
         }
-        // optionally populate default courses or run validation here
     }
 
     @PreDestroy
     private void destroy() {
-        // clear and release internal data on bean destruction
         if (kurse != null) {
             kurse.clear();
             kurse = null;

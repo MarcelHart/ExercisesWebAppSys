@@ -25,7 +25,6 @@ public class Kurs {
         this.semester = semester;
     }
 
-    // Add getters
     public String getName() {
         return name;
     }
