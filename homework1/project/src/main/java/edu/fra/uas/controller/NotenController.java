@@ -7,12 +7,25 @@ import org.springframework.web.bind.annotation.*;
 
 import edu.fra.uas.service.Kurs;
 import edu.fra.uas.service.Studiengang;
+import edu.fra.uas.exception.KursNotFoundException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 public class NotenController {
 
+    private static final Logger log = LoggerFactory.getLogger(NotenController.class);
+
     @Autowired
     private Studiengang studiengang;
+
+    private Kurs findKursByCode(int code) {
+        return studiengang.getKurse().stream()
+                .filter(k -> k.getCode() == code)
+                .findFirst()
+                .orElseThrow(() -> new KursNotFoundException(code));
+    }
 
     @GetMapping("/kurs")
     public String showKursManagement(Model model) {
@@ -37,33 +50,40 @@ public class NotenController {
 
     @GetMapping("/kurs/{code}/noten")
     public String showNotenManagement(@PathVariable int code, Model model) {
-        Kurs kurs = studiengang.getKurse().stream()
-                              .filter(k -> k.getCode() == code)
-                              .findFirst()
-                              .orElseThrow();
-        model.addAttribute("kurs", kurs);
-        return "noten-management";
+        try {
+            Kurs kurs = findKursByCode(code);
+            model.addAttribute("kurs", kurs);
+            return "noten-management";
+        } catch (KursNotFoundException e) {
+            log.error("Error accessing kurs with code: {}", code, e);
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
     }
 
     @PostMapping("/kurs/{code}/note/add")
     public String addNote(@PathVariable int code,
                          @RequestParam double note,
                          @RequestParam int gewichtung) {
-        Kurs kurs = studiengang.getKurse().stream()
-                              .filter(k -> k.getCode() == code)
-                              .findFirst()
-                              .orElseThrow();
-        kurs.addNote(note, gewichtung);
-        return "redirect:/kurs/" + code + "/noten";
+        try {
+            Kurs kurs = findKursByCode(code);
+            kurs.addNote(note, gewichtung);
+            return "redirect:/kurs/" + code + "/noten";
+        } catch (KursNotFoundException e) {
+            log.error("Error adding note to kurs with code: {}", code, e);
+            return "redirect:/kurs?error=" + e.getMessage();
+        }
     }
 
     @PostMapping("/kurs/{code}/note/{index}/delete")
     public String deleteNote(@PathVariable int code, @PathVariable int index) {
-        Kurs kurs = studiengang.getKurse().stream()
-                              .filter(k -> k.getCode() == code)
-                              .findFirst()
-                              .orElseThrow();
-        kurs.removeNote(index);
-        return "redirect:/kurs/" + code + "/noten";
+        try {
+            Kurs kurs = findKursByCode(code);
+            kurs.removeNote(index);
+            return "redirect:/kurs/" + code + "/noten";
+        } catch (KursNotFoundException e) {
+            log.error("Error deleting note from kurs with code: {}", code, e);
+            return "redirect:/kurs?error=" + e.getMessage();
+        }
     }
 }
