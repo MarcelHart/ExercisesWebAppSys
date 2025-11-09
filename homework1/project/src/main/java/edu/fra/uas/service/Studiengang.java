@@ -29,7 +29,7 @@ public class Studiengang {
     private void init() {
         // set sensible defaults if not provided
         if (this.name == null) {
-            this.name = "Wirtschaftsinformatik BSc";
+            this.name = "unknown";
         }
         if (this.studiengangscode == 0) {
             this.studiengangscode = 1;
