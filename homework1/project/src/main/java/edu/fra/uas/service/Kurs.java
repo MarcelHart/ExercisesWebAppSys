@@ -28,9 +28,19 @@ public class Kurs {
     public String getName() {
         return name;
     }
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public int getCode() {
         return code;
+    }
+
+    public int getSemester() {
+        return semester;
+    }
+    public void setSemester(int semester) {
+        this.semester = semester;
     }
 
     public List<Double> getNoten() {

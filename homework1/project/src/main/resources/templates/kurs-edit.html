@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Kurs bearbeiten</title>
+    <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+<body>
+<div class="container">
+    <h1>Kurs bearbeiten</h1>
+
+    <form th:action="@{/kurs/{code}/update(code=${kurs.code})}" method="post">
+        <div>
+            <label for="name">Kursname:</label>
+            <input id="name" name="name" type="text" th:value="${kurs.name}" required/>
+        </div>
+        <div>
+            <label for="semester">Semester:</label>
+            <input id="semester" name="semester" type="number" th:value="${kurs.semester}" required/>
+        </div>
+        <!-- code is path param, not editable here; show for info -->
+        <div>
+            <label>Kurscode:</label>
+            <span th:text="${kurs.code}"></span>
+        </div>
+
+        <button type="submit">Speichern</button>
+        <a href="/kurs" class="btn">Abbrechen</a>
+    </form>
+</div>
+</body>
+</html>

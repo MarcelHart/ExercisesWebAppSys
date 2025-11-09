@@ -86,4 +86,34 @@ public class NotenController {
             return "redirect:/kurs?error=" + e.getMessage();
         }
     }
+
+    // show edit form
+    @GetMapping("/kurs/{code}/edit")
+    public String editKursForm(@PathVariable int code, Model model) {
+        try {
+            Kurs kurs = findKursByCode(code);
+            model.addAttribute("kurs", kurs);
+            return "kurs-edit";
+        } catch (KursNotFoundException e) {
+            log.error("Kurs not found for edit: {}", code, e);
+            model.addAttribute("error", e.getMessage());
+            return "error";
+        }
+    }
+
+    // handle update
+    @PostMapping("/kurs/{code}/update")
+    public String updateKurs(@PathVariable int code,
+                             @RequestParam String name,
+                             @RequestParam int semester) {
+        try {
+            Kurs kurs = findKursByCode(code);
+            kurs.setName(name);
+            kurs.setSemester(semester);
+            return "redirect:/kurs";
+        } catch (KursNotFoundException e) {
+            log.error("Error updating kurs {}: {}", code, e.getMessage());
+            return "redirect:/kurs?error=" + e.getMessage();
+        }
+    }
 }
