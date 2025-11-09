@@ -1,6 +1,7 @@
 package edu.fra.uas.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -76,8 +77,8 @@ public class Studiengang {
         }
     }
 
-    
-
-
+    public List<Kurs> getKurse() {
+        return kurse;
+    }
 }
 

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Noten Management</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Noten Management</h1>
+        <h2 th:text="${kurs.name}"></h2>
+
+        <!-- Add new grade form -->
+        <form th:action="@{/kurs/{id}/note/add(id=${kurs.code})}" method="post">
+            <h3>Neue Note hinzufügen</h3>
+            <div>
+                <label for="note">Note:</label>
+                <input type="number" id="note" name="note" step="0.1" min="1.0" max="5.0" required>
+            </div>
+            <div>
+                <label for="gewichtung">Gewichtung:</label>
+                <input type="number" id="gewichtung" name="gewichtung" min="1" max="3" required>
+            </div>
+            <button type="submit">Note hinzufügen</button>
+        </form>
+
+        <!-- List of existing grades -->
+        <div th:if="${kurs.noten != null && !kurs.noten.empty}">
+            <h3>Vorhandene Noten</h3>
+            <div th:each="note, stat : ${kurs.noten}">
+                <div class="note-item">
+                    <span th:text="${'Note: ' + note}"></span>
+                    <span th:text="${'Gewichtung: ' + kurs.gewichtungen[stat.index]}"></span>
+                    <form th:action="@{/kurs/{id}/note/{index}/delete(id=${kurs.code},index=${stat.index})}" 
+                          method="post" style="display: inline;">
+                        <button type="submit" class="btn-delete">Löschen</button>
+                    </form>
+                </div>
+            </div>
+            <div class="durchschnitt">
+                <strong>Durchschnitt: </strong>
+                <span th:text="${#numbers.formatDecimal(kurs.berechneNotendurchschnitt(), 1, 2)}"></span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

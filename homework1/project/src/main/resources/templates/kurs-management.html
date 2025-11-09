@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Kurs Management</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Kurs Management</h1>
+        
+        <!-- Add new course form -->
+        <form th:action="@{/kurs/add}" method="post">
+            <h2>Neuen Kurs hinzufügen</h2>
+            <div>
+                <label for="name">Kursname:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div>
+                <label for="code">Kurscode:</label>
+                <input type="number" id="code" name="code" required>
+            </div>
+            <div>
+                <label for="semester">Semester:</label>
+                <input type="number" id="semester" name="semester" required>
+            </div>
+            <button type="submit">Kurs hinzufügen</button>
+        </form>
+
+        <!-- List of existing courses -->
+        <div th:if="${kurse != null && !kurse.empty}">
+            <h2>Vorhandene Kurse</h2>
+            <div th:each="kurs : ${kurse}">
+                <div class="kurs-item">
+                    <span th:text="${kurs.name}"></span>
+                    <span th:text="${'Code: ' + kurs.code}"></span>
+                    <a th:href="@{/kurs/{id}/edit(id=${kurs.code})}" class="btn">Bearbeiten</a>
+                    <form th:action="@{/kurs/{id}/delete(id=${kurs.code})}" method="post" style="display: inline;">
+                        <button type="submit" class="btn-delete">Löschen</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

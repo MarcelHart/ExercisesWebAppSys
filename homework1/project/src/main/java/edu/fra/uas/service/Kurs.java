@@ -1,42 +1,62 @@
 package edu.fra.uas.service;
 
 import org.springframework.stereotype.Component;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class Kurs {
 
     private String name;
-    private int kurscode;
+    private int code;
     private int semester;
-
-    private HashMap<Double, Integer> noten = new HashMap<>();
+    private List<Double> noten = new ArrayList<>();
+    private List<Integer> gewichtungen = new ArrayList<>();
 
     public Kurs() {
         this.name = "unknown";
-        this.kurscode = 0;
+        this.code = 0;
         this.semester = 0;
     }   
 
-    public Kurs(String name, int kurscode, int semester) {
+    public Kurs(String name, int code, int semester) {
         this.name = name;
-        this.kurscode = kurscode;
+        this.code = code;
         this.semester = semester;
     }
 
+    // Add getters
+    public String getName() {
+        return name;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public List<Double> getNoten() {
+        return noten;
+    }
+
+    public List<Integer> getGewichtungen() {
+        return gewichtungen;
+    }
 
     public void addNote(double note, int gewichtung) {
-        noten.put(note, gewichtung);
+        noten.add(note);
+        gewichtungen.add(gewichtung);
     }
-    public void removeNote(double note) {
-        noten.remove(note);
+    public void removeNote(int index) {
+        if (index >= 0 && index < noten.size()) {
+            noten.remove(index);
+            gewichtungen.remove(index);
+        }
     }
 
     public String notenAusgeben() {
         String text = "";
-        for (Double note : noten.keySet()) {
-            
-            text += "Note: " + note + " Gewichtung: " + noten.get(note) + "\n";
+        for (int i = 0; i < noten.size(); i++) {
+            text += "Note: " + noten.get(i) + " Gewichtung: " + gewichtungen.get(i) + "\n";
         }
         return text;
     }
@@ -45,7 +65,7 @@ public class Kurs {
     public String toString() {
         return "Kurs{" +
                 "name='" + name + '\'' +
-                ", kurscode=" + kurscode +
+                ", code=" + code +
                 ", semester=" + semester +
                 '}';
     }
@@ -53,8 +73,9 @@ public class Kurs {
     public double berechneNotendurchschnitt() {
         double summe = 0;
         int gesamtgewichtung = 0;
-        for (Double note : noten.keySet()) {
-            int gewichtung = noten.get(note);
+        for (int i = 0; i < noten.size(); i++) {
+            double note = noten.get(i);
+            int gewichtung = gewichtungen.get(i);
             summe += note * gewichtung;
             gesamtgewichtung += gewichtung;
         }
