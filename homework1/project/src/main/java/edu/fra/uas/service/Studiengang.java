@@ -78,5 +78,17 @@ public class Studiengang {
     public List<Kurs> getKurse() {
         return kurse;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getStudiengangscode() {
+        return studiengangscode;
+    }
 }
 
