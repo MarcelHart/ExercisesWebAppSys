@@ -1,0 +1,28 @@
+type Kurs {
+  code: Int!
+  name: String
+  semester: Int
+  noten: [Float]
+  gewichtungen: [Int]
+  durchschnitt: Float
+}
+
+type Studiengang {
+  name: String
+  studiengangscode: Int
+  kurse: [Kurs]
+  notendurchschnitt: Float
+}
+
+type Query {
+  kurse: [Kurs]
+  kurs(code: Int!): Kurs
+  studiengang: Studiengang
+}
+
+type Mutation {
+  createKurs(code: Int!, name: String!, semester: Int!): Kurs
+  deleteKurs(code: Int!): Boolean
+  addNote(code: Int!, note: Float!, gewichtung: Int!): Kurs
+  deleteNote(code: Int!, index: Int!): Kurs
+}

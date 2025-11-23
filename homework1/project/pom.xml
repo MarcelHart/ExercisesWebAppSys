@@ -43,6 +43,20 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId> // Add Spring Data REST support
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-graphql</artifactId>
+        </dependency>
+
+        <!-- Optional: GraphiQL/Playground for browsing queries (use external Altair/Insomnia as alternative) -->
+        <!--
+        <dependency>
+            <groupId>com.graphql-java-kickstart</groupId>
+            <artifactId>graphiql-spring-boot-starter</artifactId>
+            <version>5.0.0</version>
+        </dependency>
+        -->
+
     </dependencies>
 
     <build>
